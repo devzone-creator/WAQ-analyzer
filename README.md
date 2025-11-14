@@ -1,30 +1,47 @@
-# Wikipedia Article Quality Analyzer
+# Wikipedia Article Editor & Quality Checker
 
-A comprehensive tool for analyzing Wikipedia articles and providing quality scores based on readability, reference quality, citation count, and structural completeness. Designed to help Wikipedia editors improve articles and prioritize editing efforts.
+A real-time article quality checker and writing assistant for Wikipedia contributors. Write or paste your article content and get instant feedback based on Wikipedia's guidelines, policies, and best practices. Built for the **WikiIndaba Hackathon 2025** to help African and global contributors create high-quality Wikipedia articles.
 
-![Wikipedia Quality Analyzer](https://via.placeholder.com/800x400/3B82F6/FFFFFF?text=Wikipedia+Quality+Analyzer)
+**✍️ Write Better Articles | 📋 Real-time Feedback | 🌍 Multilingual Support | 📖 Wikipedia Guidelines Compliant**
+
+![Wikipedia Article Editor](https://via.placeholder.com/800x400/3B82F6/FFFFFF?text=Wikipedia+Article+Editor)
 
 ## 🌟 Features
 
-### Core Analysis Metrics
-- **Readability Analysis**: Flesch reading score, sentence length, vocabulary complexity
-- **Citation Quality**: Inline citations, citation density, reference patterns
-- **Reference Assessment**: Source reliability, external links, bibliography completeness
+### Writing & Editing Canvas
+- **📝 Live Editor**: Write or paste your article content in a clean, distraction-free editor
+- **⚡ Real-time Analysis**: Get instant feedback as you type
+- **🎯 Inline Suggestions**: See specific issues highlighted directly in your text
+- **📋 Wikipedia Guidelines**: Automatic checks against Wikipedia's core policies and guidelines
+- **🔍 Citation Helper**: Identify where citations are needed and get formatting help
+
+### Wikipedia Policy Compliance
+- **✅ Neutral Point of View (NPOV)**: Detect biased language and promotional content
+- **📚 Verifiability**: Check citation requirements and source quality
+- **🚫 No Original Research**: Flag unsourced claims and synthesis
+- **⚖️ Notability**: Assess if topic meets notability guidelines
+- **🤝 Code of Conduct**: Ensure respectful, collaborative tone
+
+### Quality Metrics
+- **Readability Analysis**: Flesch reading score, sentence complexity, vocabulary level
+- **Citation Quality**: Inline citations, citation density, reference formatting
+- **Reference Assessment**: Source reliability, diversity, and recency
 - **Structural Analysis**: Section organization, header hierarchy, content balance
+- **Language Quality**: Grammar, spelling, and style consistency
+
+### Multilingual Support (WikiIndaba 2025)
+- **🌍 Multiple Languages**: Support for English, French, Arabic, Swahili, Hausa, Yoruba, Amharic, Zulu
+- **🗣️ Language-specific Guidelines**: Adapted rules for different Wikipedia language editions
+- **🌍 African Content Focus**: Special metrics for African topics and sources
+- **📖 Translation Helper**: Compare articles across languages
 
 ### User Experience
-- **Real-time Search**: Auto-complete suggestions for Wikipedia articles
-- **URL Support**: Direct Wikipedia URL input and parsing
-- **Visual Scoring**: Color-coded progress bars and intuitive score displays
-- **Recent History**: Track and revisit previous analyses
-- **Actionable Suggestions**: Specific recommendations for article improvement
-- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
-
-### Technical Features
-- **Fast Performance**: Efficient API calls and optimized rendering
-- **Error Handling**: Graceful handling of network issues and invalid inputs
-- **Accessibility**: WCAG compliant with proper ARIA labels and keyboard navigation
-- **Modern UI**: Clean, professional interface with smooth animations
+- **💾 Auto-save**: Never lose your work with automatic saving
+- **📊 Progress Tracking**: See your article quality improve in real-time
+- **📤 Export Options**: Export to wikitext, PDF, or plain text
+- **🎨 Syntax Highlighting**: Wikipedia markup syntax highlighting
+- **📱 Mobile Friendly**: Write and check articles on any device
+- **⚡ Offline Mode**: Work without internet, sync when connected
 
 ## 🚀 Quick Start
 

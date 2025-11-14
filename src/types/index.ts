@@ -74,6 +74,11 @@ export interface AnalysisResult {
   scores: QualityScore;
   suggestions: string[];
   timestamp: string;
+  language?: string;
+  africanMetrics?: any;
+  readingTime?: number;
+  complexityLevel?: string;
+  wordCount?: number;
 }
 
 export interface EnhancedSuggestion {
