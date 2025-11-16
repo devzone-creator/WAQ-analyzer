@@ -1,19 +1,19 @@
-# Wikipedia Article Editor & Quality Checker
+# AtiQr - Wikipedia Training Tool
 
-A real-time article quality checker and writing assistant for Wikipedia contributors. Write or paste your article content and get instant feedback based on Wikipedia's guidelines, policies, and best practices. Built for the **WikiIndaba Hackathon 2025** to help African and global contributors create high-quality Wikipedia articles.
+A Wikipedia training tool designed for school Wikipedia clubs to help beginners, intermediate, and expert writers improve their editing skills. Get real-time analysis, side-by-side corrections, and learn Wikipedia guidelines through practice.
 
-**✍️ Write Better Articles | 📋 Real-time Feedback | 🌍 Multilingual Support | 📖 Wikipedia Guidelines Compliant**
+**📚 Learn by Doing | 🎯 Real-time Corrections | 🌍 Multilingual Support | 📖 Wikipedia Guidelines Mastery**
 
-![Wikipedia Article Editor](https://via.placeholder.com/800x400/3B82F6/FFFFFF?text=Wikipedia+Article+Editor)
+![AtiQr Training Tool](https://via.placeholder.com/800x400/3B82F6/FFFFFF?text=AtiQr+Training+Tool)
 
 ## 🌟 Features
 
-### Writing & Editing Canvas
-- **📝 Live Editor**: Write or paste your article content in a clean, distraction-free editor
-- **⚡ Real-time Analysis**: Get instant feedback as you type
-- **🎯 Inline Suggestions**: See specific issues highlighted directly in your text
-- **📋 Wikipedia Guidelines**: Automatic checks against Wikipedia's core policies and guidelines
-- **🔍 Citation Helper**: Identify where citations are needed and get formatting help
+### Dual Canvas Training Mode
+- **📝 Paste & Analyze**: Paste your draft and see corrections side-by-side
+- **📖 Article Study Mode**: Analyze existing Wikipedia articles to learn from good examples
+- **🎯 Visual Corrections**: Original text vs. improved version with detailed explanations
+- **📋 Learning Points**: Understand why each correction matters
+- **🔍 Citation Training**: Learn where and how to add proper citations
 
 ### Wikipedia Policy Compliance
 - **✅ Neutral Point of View (NPOV)**: Detect biased language and promotional content
@@ -29,19 +29,26 @@ A real-time article quality checker and writing assistant for Wikipedia contribu
 - **Structural Analysis**: Section organization, header hierarchy, content balance
 - **Language Quality**: Grammar, spelling, and style consistency
 
-### Multilingual Support (WikiIndaba 2025)
-- **🌍 Multiple Languages**: Support for English, French, Arabic, Swahili, Hausa, Yoruba, Amharic, Zulu
-- **🗣️ Language-specific Guidelines**: Adapted rules for different Wikipedia language editions
-- **🌍 African Content Focus**: Special metrics for African topics and sources
-- **📖 Translation Helper**: Compare articles across languages
+### Multilingual Support
+- **🌍 8 Languages**: English, French, Arabic, Swahili, Hausa, Yoruba, Amharic, Zulu
+- **🗣️ Language-specific Analysis**: Adapted guidelines for different Wikipedia editions
+- **📖 Cross-language Learning**: Study articles in multiple languages
+- **🎓 Beginner-friendly**: Perfect for school Wikipedia clubs
 
-### User Experience
-- **💾 Auto-save**: Never lose your work with automatic saving
-- **📊 Progress Tracking**: See your article quality improve in real-time
-- **📤 Export Options**: Export to wikitext, PDF, or plain text
-- **🎨 Syntax Highlighting**: Wikipedia markup syntax highlighting
-- **📱 Mobile Friendly**: Write and check articles on any device
-- **⚡ Offline Mode**: Work without internet, sync when connected
+### Training Features
+- **📊 Progress Tracking**: Track common mistakes and improvements over time
+- **🎯 Targeted Learning**: Focus on specific Wikipedia guidelines
+- **💡 Learning Points**: Understand the "why" behind each correction
+- **📱 Mobile Friendly**: Practice on any device
+- **🔗 Guideline Links**: Direct links to Wikipedia policy pages
+- **👥 Perfect for Groups**: Ideal for school Wikipedia clubs and training sessions
+
+### Export Features
+- **🖨️ Print/PDF**: Generate printable training reports with full analysis
+- **📝 Markdown**: Export to Markdown format for documentation
+- **📊 CSV**: Export corrections to spreadsheet format for tracking
+- **💾 JSON**: Export complete analysis data for developers
+- **📤 Share with Teachers**: Save and share your progress for feedback
 
 ## 🚀 Quick Start
 
@@ -53,8 +60,8 @@ A real-time article quality checker and writing assistant for Wikipedia contribu
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/wikipedia-quality-analyzer.git
-cd wikipedia-quality-analyzer
+git clone https://github.com/your-username/atiqr.git
+cd atiqr
 
 # Install dependencies
 npm install
@@ -77,49 +84,45 @@ npm run preview
 
 ## 📖 Usage Guide
 
-### Analyzing an Article
+### Two Training Modes
 
-1. **Search Method**: Type an article title in the search box to see auto-complete suggestions
-2. **URL Method**: Paste a Wikipedia URL directly into the input field
-3. **Click Analyze**: The tool will fetch the article and perform comprehensive analysis
+#### 1. Paste & Analyze Mode
+1. Write or paste your Wikipedia draft in the text area
+2. Select your language (English, French, Arabic, Swahili, etc.)
+3. Click "Analyze & Learn"
+4. Review corrections side-by-side with explanations
 
-### Understanding Scores
+#### 2. Article Study Mode
+1. Paste a Wikipedia article URL
+2. Click "Analyze & Learn"
+3. Study how the article follows (or breaks) Wikipedia guidelines
+4. Learn from good examples and identify areas for improvement
 
-Each metric is scored from 0-100:
+### Understanding Corrections
 
-- **90-100**: Excellent quality, minimal improvements needed
-- **70-89**: Good quality, minor enhancements recommended
-- **50-69**: Fair quality, moderate improvements needed
-- **0-49**: Needs significant work, major improvements required
+AtiQr identifies three types of issues:
 
-### Score Breakdown
+- **🔴 Critical (Errors)**: Violations of core Wikipedia policies (NPOV, Verifiability, No Original Research)
+- **🟠 Important (Warnings)**: Style issues that affect article quality (weasel words, peacock terms)
+- **🔵 Suggestions**: Recommendations for improvement (citation placement, structure)
 
-#### Readability (25% of overall score)
-- **Flesch Score**: Reading ease based on sentence and word complexity
-- **Sentence Length**: Average words per sentence
-- **Complex Words**: Count of difficult vocabulary
+### Learning from Corrections
 
-#### Citations (25% of overall score)
-- **Total Citations**: All reference markers in the article
-- **Inline Citations**: Citations within the article text
-- **Citation Density**: Citations per 1000 words
+Each correction includes:
+- **Original Text**: What you wrote
+- **Improved Version**: How it should be written
+- **Explanation**: Why the change is needed
+- **Guideline Link**: Direct link to Wikipedia policy page
+- **Category**: Type of issue (citation, NPOV, style, etc.)
 
-#### References (25% of overall score)
-- **Total References**: External links and sources
-- **Reliable Sources**: Academic, government, and reputable sources
-- **Source Quality**: Percentage of high-quality sources
+### Common Issues AtiQr Catches
 
-#### Structure (25% of overall score)
-- **Introduction**: Presence of comprehensive intro section
-- **Sections**: Proper article organization
-- **Section Balance**: Even distribution of content
-
-### Improvement Suggestions
-
-The tool provides specific, actionable recommendations:
-- **High Priority**: Critical issues affecting article quality
-- **Medium Priority**: Important improvements for better readability
-- **Low Priority**: Minor enhancements for polish
+1. **Missing Citations**: Factual claims without sources
+2. **Biased Language**: Words like "clearly", "obviously", "best"
+3. **Weasel Words**: Vague phrases like "some people say"
+4. **Peacock Terms**: Promotional language like "legendary", "world-famous"
+5. **Original Research**: Personal opinions or conclusions
+6. **Poor Structure**: Missing sections or unbalanced content
 
 ## 🛠️ Technical Architecture
 

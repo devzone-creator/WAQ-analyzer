@@ -1,8 +1,8 @@
 {
-  "name": "wikiindaba-quality-analyzer",
+  "name": "Article-analyzer",
   "private": true,
   "version": "2.0.0",
-  "description": "WikiIndaba Hackathon 2025 - Multi-language Wikipedia quality analyzer for African Wikimedia communities",
+  "description": "Multi-language Wikipedia quality analyzer for Wikipedia communities",
   "type": "module",
   "scripts": {
     "dev": "vite",
