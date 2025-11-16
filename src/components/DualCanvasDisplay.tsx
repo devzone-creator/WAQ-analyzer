@@ -2,6 +2,8 @@ import React from 'react';
 import { AlertCircle, CheckCircle, Info, ArrowRight } from 'lucide-react';
 import { CorrectionItem } from '../types/training';
 import { ExportButtons } from './ExportButtons';
+import { getTranslation } from '../i18n/translations';
+import { SupportedLanguage } from '../types/wikiindaba';
 
 interface DualCanvasDisplayProps {
   originalText: string;
@@ -14,6 +16,7 @@ export const DualCanvasDisplay: React.FC<DualCanvasDisplayProps> = ({
   corrections,
   language
 }) => {
+  const t = getTranslation(language as SupportedLanguage);
   const lines = originalText.split('\n');
   
   const getCorrectedText = (): string => {
@@ -65,34 +68,34 @@ export const DualCanvasDisplay: React.FC<DualCanvasDisplayProps> = ({
       
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="mb-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-2">Analysis Results</h3>
-        <div className="flex items-center gap-4 text-sm">
+        <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">Analysis Results</h3>
+        <div className="flex flex-wrap items-center gap-3 md:gap-4 text-xs md:text-sm">
           <span className="flex items-center gap-1">
             <AlertCircle className="w-4 h-4 text-red-500" />
             <span className="text-gray-700">
-              {corrections.filter(c => c.severity === 'critical').length} Critical
+              {corrections.filter(c => c.severity === 'critical').length} {t.critical}
             </span>
           </span>
           <span className="flex items-center gap-1">
             <AlertCircle className="w-4 h-4 text-orange-500" />
             <span className="text-gray-700">
-              {corrections.filter(c => c.severity === 'important').length} Important
+              {corrections.filter(c => c.severity === 'important').length} {t.important}
             </span>
           </span>
           <span className="flex items-center gap-1">
             <Info className="w-4 h-4 text-blue-500" />
             <span className="text-gray-700">
-              {corrections.filter(c => c.severity === 'recommended').length} Suggestions
+              {corrections.filter(c => c.severity === 'recommended').length} {t.suggestions}
             </span>
           </span>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         {/* Original Text Panel */}
         <div className="border border-gray-300 rounded-lg overflow-hidden">
-          <div className="bg-gray-100 px-4 py-2 border-b border-gray-300">
-            <h4 className="font-semibold text-gray-900">Your Original Text</h4>
+          <div className="bg-gray-100 px-3 md:px-4 py-2 border-b border-gray-300">
+            <h4 className="font-semibold text-gray-900 text-sm md:text-base">{t.originalText}</h4>
           </div>
           <div className="p-4 bg-white max-h-96 overflow-y-auto">
             {lines.map((line, idx) => {
@@ -123,10 +126,10 @@ export const DualCanvasDisplay: React.FC<DualCanvasDisplayProps> = ({
 
         {/* Corrected Text Panel */}
         <div className="border border-green-300 rounded-lg overflow-hidden">
-          <div className="bg-green-100 px-4 py-2 border-b border-green-300">
-            <h4 className="font-semibold text-gray-900 flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-green-600" />
-              Improved Version
+          <div className="bg-green-100 px-3 md:px-4 py-2 border-b border-green-300">
+            <h4 className="font-semibold text-gray-900 flex items-center gap-2 text-sm md:text-base">
+              <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-green-600" />
+              {t.improvedVersion}
             </h4>
           </div>
           <div className="p-4 bg-white max-h-96 overflow-y-auto">
