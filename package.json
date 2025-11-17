@@ -18,7 +18,10 @@
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "recharts": "^2.8.0"
+    "recharts": "^2.8.0",
+    "retext": "^9.0.0",
+    "retext-equality": "^7.1.0",
+    "unified": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

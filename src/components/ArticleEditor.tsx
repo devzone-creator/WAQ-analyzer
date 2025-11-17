@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FileText, AlertCircle, CheckCircle, Info } from 'lucide-react';
 import { WikipediaGuideline } from '../types/guidelines';
+import { unified } from 'unified';
+import retext from 'retext';
+import retextEquality from 'retext-equality';
 
 interface ArticleEditorProps {
   onContentChange: (content: string) => void;
@@ -11,6 +14,7 @@ interface Issue {
   type: 'error' | 'warning' | 'info';
   message: string;
   line: number;
+  column?: number;
   guideline: string;
   suggestion?: string;
 }
@@ -20,6 +24,9 @@ export function ArticleEditor({ onContentChange, initialContent = '' }: ArticleE
   const [issues, setIssues] = useState<Issue[]>([]);
   const [wordCount, setWordCount] = useState(0);
   const [charCount, setCharCount] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [aiSuggestions, setAiSuggestions] = useState<string[]>([]);
+  const [isLoadingAI, setIsLoadingAI] = useState(false);
 
   useEffect(() => {
     const words = content.trim().split(/\s+/).filter(w => w.length > 0).length;
@@ -27,6 +34,24 @@ export function ArticleEditor({ onContentChange, initialContent = '' }: ArticleE
     setWordCount(words);
     setCharCount(chars);
   }, [content]);
+
+  const getAISuggestions = () => {
+    setIsLoadingAI(true);
+    setIsModalOpen(true);
+    setAiSuggestions([]);
+
+    setTimeout(() => {
+      const exampleSuggestions = [
+        "The lead section could be expanded to better summarize the article's key points.",
+        "Consider rephrasing the sentence 'It is an amazing achievement' to be more neutral, for example: 'It is regarded by critics as a significant achievement.'",
+        "The 'History' section would benefit from more citations from reliable sources to support its claims.",
+        "To improve neutrality, attribute the claim 'the best product on the market' to a specific source.",
+        "Consider adding an 'Impact' section to discuss the subject's influence and legacy."
+      ];
+      setAiSuggestions(exampleSuggestions);
+      setIsLoadingAI(false);
+    }, 2000);
+  };
 
   const handleContentChange = useCallback((newContent: string) => {
     setContent(newContent);
@@ -39,6 +64,80 @@ export function ArticleEditor({ onContentChange, initialContent = '' }: ArticleE
   const analyzeContent = (text: string) => {
     const foundIssues: Issue[] = [];
     const lines = text.split('\n');
+
+    // Bias detection with retext-equality
+    const processor = unified().use(retext).use(retextEquality);
+    const file = processor.processSync(text);
+
+    file.messages.forEach(message => {
+      foundIssues.push({
+        type: 'warning',
+        message: message.reason,
+        line: message.line || 1,
+        column: message.column || 1,
+        guideline: 'NPOV',
+        suggestion: `Consider using a more neutral term than "${message.actual}"`
+      });
+    });
+
+    // Section length analysis
+    const sections: { title: string, startLine: number, content: string }[] = [];
+    let currentSection: { title: string, startLine: number, content: string } | null = null;
+
+    lines.forEach((line, index) => {
+      const match = line.match(/^==\s*(.*?)\s*==$/);
+      if (match) {
+        if (currentSection) {
+          sections.push(currentSection);
+        }
+        currentSection = {
+          title: match[1],
+          startLine: index + 1,
+          content: ''
+        };
+      } else if (currentSection) {
+        currentSection.content += line + '\n';
+      }
+    });
+    if (currentSection) {
+      sections.push(currentSection);
+    }
+
+    sections.forEach(section => {
+      const wordCount = section.content.trim().split(/\s+/).filter(Boolean).length;
+      if (wordCount > 0 && wordCount < 50) {
+        foundIssues.push({
+          type: 'info',
+          message: `Section "${section.title}" is very short.`,
+          line: section.startLine,
+          guideline: 'WP:SUMMARY',
+          suggestion: 'Consider expanding this section with more details.'
+        });
+      }
+    });
+
+    // Check for standard sections
+    const hasReferences = /==\s*References\s*==/i.test(text);
+    if (!hasReferences) {
+      foundIssues.push({
+        type: 'warning',
+        message: 'Missing "References" section.',
+        line: lines.length,
+        guideline: 'WP:LAYOUT',
+        suggestion: 'Add a "== References ==" section with <references /> to display citations.'
+      });
+    }
+
+    const hasSeeAlso = /==\s*See also\s*==/i.test(text);
+    if (text.length > 500 && !hasSeeAlso) { // Only suggest for longer articles
+      foundIssues.push({
+        type: 'info',
+        message: 'Consider adding a "See also" section.',
+        line: lines.length,
+        guideline: 'WP:LAYOUT',
+        suggestion: 'A "See also" section can link to other relevant Wikipedia articles.'
+      });
+    }
 
     lines.forEach((line, index) => {
       // Check for weasel words
@@ -152,9 +251,17 @@ The history section describes...
       {/* Issues Panel */}
       {issues.length > 0 && (
         <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4">
-          <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-3">
-            Issues & Suggestions ({issues.length})
-          </h3>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+              Issues & Suggestions ({issues.length})
+            </h3>
+            <button
+              onClick={getAISuggestions}
+              className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200"
+            >
+              Get AI Suggestions ✨
+            </button>
+          </div>
           <div className="space-y-2 max-h-64 overflow-y-auto">
             {issues.map((issue, index) => (
               <div
@@ -165,7 +272,7 @@ The history section describes...
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center space-x-2">
                     <span className="text-sm font-medium text-slate-900 dark:text-white">
-                      Line {issue.line}
+                      Line {issue.line}{issue.column ? `:${issue.column}` : ''}
                     </span>
                     <span className="text-xs px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">
                       {issue.guideline}
@@ -182,6 +289,40 @@ The history section describes...
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* AI Suggestions Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 w-full max-w-2xl">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                🤖 AI Suggestions
+              </h3>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+              >
+                &times;
+              </button>
+            </div>
+            {isLoadingAI ? (
+              <div className="flex items-center justify-center h-32">
+                <p className="text-slate-600 dark:text-slate-300">
+                  Analyzing your article...
+                </p>
+              </div>
+            ) : (
+              <ul className="space-y-3">
+                {aiSuggestions.map((suggestion, index) => (
+                  <li key={index} className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm text-blue-800 dark:text-blue-300">
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       )}
