@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { BookOpen } from 'lucide-react';
 import { TrainingCanvas } from './components/TrainingCanvas';
 import { DualCanvasDisplay } from './components/DualCanvasDisplay';
+import { AIAnalysisDisplay } from './components/AIAnalysisDisplay';
 import { TrainingAnalyzer } from './services/trainingAnalyzer';
+import { AIService, AIAnalysisResult } from './services/ai/aiService';
 import { SupportedLanguage } from './types/wikiindaba';
 import { AnalysisMode, CorrectionItem } from './types/training';
 import { getTranslation } from './i18n/translations';
@@ -12,6 +14,7 @@ function App() {
   const [originalText, setOriginalText] = useState<string>('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>('en');
+  const [aiAnalysis, setAiAnalysis] = useState<AIAnalysisResult | null>(null);
   
   const t = getTranslation(selectedLanguage);
 
@@ -21,17 +24,14 @@ function App() {
     setSelectedLanguage(language);
 
     try {
-      if (mode.type === 'article-study' && text.includes('wikipedia.org')) {
-        // For now, just analyze the pasted text instead of fetching from Wikipedia
-        // Wikipedia API has CORS restrictions
-        alert('Article Study Mode: Please paste the article text directly instead of the URL for now.');
-        const analysisResults = TrainingAnalyzer.analyzeForTraining(text, language);
-        setCorrections(analysisResults);
-      } else {
-        // Analyze pasted text
-        const analysisResults = TrainingAnalyzer.analyzeForTraining(text, language);
-        setCorrections(analysisResults);
-      }
+      // Run both traditional and AI analysis
+      const [traditionalResults, aiResults] = await Promise.all([
+        Promise.resolve(TrainingAnalyzer.analyzeForTraining(text, language)),
+        AIService.analyzeText(text, language)
+      ]);
+
+      setCorrections(traditionalResults);
+      setAiAnalysis(aiResults);
     } catch (error) {
       console.error('Analysis error:', error);
       alert('Failed to analyze. Please check your input and try again.');
@@ -74,11 +74,19 @@ function App() {
           )}
           
           {!isAnalyzing && corrections.length > 0 && (
-            <DualCanvasDisplay
-              originalText={originalText}
-              corrections={corrections}
-              language={selectedLanguage}
-            />
+            <>
+              {aiAnalysis && (
+                <AIAnalysisDisplay
+                  analysis={aiAnalysis}
+                  language={selectedLanguage}
+                />
+              )}
+              <DualCanvasDisplay
+                originalText={originalText}
+                corrections={corrections}
+                language={selectedLanguage}
+              />
+            </>
           )}
         </div>
 
