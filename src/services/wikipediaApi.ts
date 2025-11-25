@@ -1,6 +1,5 @@
 import { CacheService } from './cacheService';
 
-const WIKIPEDIA_API_BASE = 'https://en.wikipedia.org/api/rest_v1';
 const WIKIPEDIA_API_ACTION = 'https://en.wikipedia.org/w/api.php';
 
 export class WikipediaService {
@@ -18,7 +17,7 @@ export class WikipediaService {
     }, 2 * 60 * 1000); // 2 minutes cache
   }
 
-  static async getArticleContent(title: string): Promise<any> {
+  static async getArticleContent(title: string): Promise<Record<string, unknown>> {
     const cacheKey = `article:${title}`;
     
     return this.cache.getOrFetch(cacheKey, async () => {
@@ -67,7 +66,7 @@ export class WikipediaService {
         `${WIKIPEDIA_API_ACTION}?action=query&format=json&list=random&rnnamespace=0&rnlimit=${count}&origin=*`
       );
       const data = await response.json();
-      return data.query?.random?.map((page: any) => page.title) || [];
+      return data.query?.random?.map((page: Record<string, unknown>) => page.title) || [];
     } catch (error) {
       console.error('Error fetching random articles:', error);
       return [];
@@ -80,7 +79,7 @@ export class WikipediaService {
         `${WIKIPEDIA_API_ACTION}?action=query&format=json&list=categorymembers&cmtitle=Category:Featured_articles&cmlimit=${limit}&origin=*`
       );
       const data = await response.json();
-      return data.query?.categorymembers?.map((page: any) => page.title) || [];
+      return data.query?.categorymembers?.map((page: Record<string, unknown>) => page.title) || [];
     } catch (error) {
       console.error('Error fetching featured articles:', error);
       return [];

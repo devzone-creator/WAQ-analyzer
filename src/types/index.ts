@@ -75,7 +75,7 @@ export interface AnalysisResult {
   suggestions: string[];
   timestamp: string;
   language?: string;
-  africanMetrics?: any;
+  africanMetrics?: Record<string, unknown>;
   readingTime?: number;
   complexityLevel?: string;
   wordCount?: number;

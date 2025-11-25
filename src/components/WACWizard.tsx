@@ -4,7 +4,11 @@ import { WACWizardManager } from '../services/wacWizardManager';
 import { WACWizardState } from '../types/waca';
 import { StepIndicator } from './WizardStepIndicator';
 import { Step1NotabilityCheck } from './Step1NotabilityCheck';
+import { Step2LeadInfobox } from './Step2LeadInfobox';
+import { Step3CitationStructure } from './Step3CitationStructure';
 import { Step4ContentNPOV } from './Step4ContentNPOV';
+import { Step5ReviewMetadata } from './Step5ReviewMetadata';
+import { Step6FinalSubmission } from './Step6FinalSubmission';
 
 interface WACWizardProps {
   onSubmit?: (wikitext: string) => void;
@@ -31,7 +35,7 @@ export const WACWizard: React.FC<WACWizardProps> = () => {
 
   // Handle step update
   const handleStepUpdate = useCallback(
-    async (stepData: any) => {
+    async (stepData: Record<string, unknown>) => {
       if (!manager) return;
 
       try {
@@ -167,15 +171,21 @@ export const WACWizard: React.FC<WACWizardProps> = () => {
           )}
 
           {state.currentStep === 2 && (
-            <div className="text-center py-8">
-              <p className="text-gray-600">Step 2: Lead & Infobox - Coming Soon</p>
-            </div>
+            <Step2LeadInfobox
+              data={state.step2}
+              onUpdate={handleStepUpdate}
+              onNext={handleNext}
+              isLoading={isLoading}
+            />
           )}
 
           {state.currentStep === 3 && (
-            <div className="text-center py-8">
-              <p className="text-gray-600">Step 3: Citation Structure - Coming Soon</p>
-            </div>
+            <Step3CitationStructure
+              data={state.step3}
+              onUpdate={handleStepUpdate}
+              onNext={handleNext}
+              isLoading={isLoading}
+            />
           )}
 
           {state.currentStep === 4 && (
@@ -188,15 +198,20 @@ export const WACWizard: React.FC<WACWizardProps> = () => {
           )}
 
           {state.currentStep === 5 && (
-            <div className="text-center py-8">
-              <p className="text-gray-600">Step 5: Review & Metadata - Coming Soon</p>
-            </div>
+            <Step5ReviewMetadata
+              data={state.step5}
+              onUpdate={handleStepUpdate}
+              onNext={handleNext}
+              isLoading={isLoading}
+            />
           )}
 
           {state.currentStep === 6 && (
-            <div className="text-center py-8">
-              <p className="text-gray-600">Step 6: Final Submission - Coming Soon</p>
-            </div>
+            <Step6FinalSubmission
+              wizardState={state}
+              onSubmit={handleNext}
+              isLoading={isLoading}
+            />
           )}
         </div>
 
