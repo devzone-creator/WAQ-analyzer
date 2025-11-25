@@ -58,7 +58,6 @@ export class SourceCredibilityService {
     'techcrunch.com',
     'arstechnica.com',
     'wired.com',
-    'medium.com',
     // Magazine publishers
     'smithsonianmag.com',
     'nationalgeographic.com',
@@ -94,7 +93,7 @@ export class SourceCredibilityService {
     const domain = this.extractDomain(url);
     const tier = this.assessCredibilityTier(domain);
     const isIndependent = this.checkIndependence(url, domain);
-    const isReliable = tier !== 'low';
+    const isReliable = tier === 'high' || tier === 'medium';
 
     // Simulate async verification (in production, would check URL availability, SSL, etc.)
     const verified = await this.verifySourceExists(url);
@@ -206,7 +205,7 @@ export class SourceCredibilityService {
    */
   private static checkIndependence(url: string, domain: string): boolean {
     // Social media is not independent
-    if (this.LOW_CREDIBILITY_PATTERNS.some(p => domain.includes(p))) {
+    if (this.LOW_CREDIBILITY_PATTERNS.some(p => domain.includes(p) || url.includes(p))) {
       return false;
     }
 
@@ -225,12 +224,10 @@ export class SourceCredibilityService {
   private static async verifySourceExists(url: string): Promise<boolean> {
     try {
       // In production environment, this would make a real HTTP request
-      // For now, simulate success for valid URLs
-      if (url.startsWith('http://') || url.startsWith('https://')) {
-        // Simple heuristic: if it has a valid domain structure
-        return this.extractDomain(url).includes('.');
-      }
-      return false;
+      // For now, simulate success for valid URLs. Accept URLs with or without scheme.
+      const normalized = url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`;
+      // Simple heuristic: if it has a valid domain structure
+      return this.extractDomain(normalized).includes('.');
     } catch {
       return false;
     }

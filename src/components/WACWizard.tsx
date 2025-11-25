@@ -103,6 +103,8 @@ export const WACWizard: React.FC<WACWizardProps> = () => {
     }
   }, [manager]);
 
+  const [showIssueModal, setShowIssueModal] = useState(false);
+
   if (!manager || !state) {
     return (
       <div className="w-full max-w-4xl mx-auto">
@@ -233,9 +235,27 @@ export const WACWizard: React.FC<WACWizardProps> = () => {
             Step {state.currentStep} of 6
           </p>
         </div>
-        {/* Issue Reporter - allow users to file issues or open a prefilled GitHub issue */}
-        <div className="max-w-4xl mx-auto px-4 mt-6">
-          <IssueReporter repoOwner="devzone-creator" repoName="WAQ-analyzer" />
+        {/* Issue Reporter — simple single-button modal for non-technical users */}
+        <div className="max-w-4xl mx-auto px-4 mt-6 flex items-center gap-3">
+          <button
+            onClick={() => setShowIssueModal(true)}
+            className="px-4 py-2 bg-red-600 text-white rounded shadow hover:bg-red-700"
+            title="Report an issue or give feedback"
+          >
+            Report Issue
+          </button>
+
+          <p className="text-sm text-gray-600">Report a problem with this draft or sources (one-click opens a prefilled issue).</p>
+
+          <IssueReporter
+            isOpen={showIssueModal}
+            onClose={() => setShowIssueModal(false)}
+            repoOwner="devzone-creator"
+            repoName="WAQ-analyzer"
+            defaultTitle={`Feedback: ${state.articleTitle} (Step ${state.currentStep})`}
+            defaultBody={`Context: Step ${state.currentStep}\nArticle: ${state.articleTitle}\n\nState snapshot:\n- Completed steps: ${state.completedSteps.join(', ') || 'none'}\n- Sources: ${state.step1?.sources ? state.step1.sources.length : 0}\n\nDescribe the issue or feedback:`}
+            simpleMode={true}
+          />
         </div>
       </div>
     </div>
