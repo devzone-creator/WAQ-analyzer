@@ -1,8 +1,9 @@
 {
-  "name": "Article-analyzer",
-  "private": true,
-  "version": "2.0.0",
-  "description": "Multi-language Wikipedia quality analyzer for Wikipedia communities",
+  "name": "waca",
+  "private": false,
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "WACA (Wikipedia Article Creation Assistant) - A policy-enforcing, guided 6-step wizard for creating AfC-compliant Wikipedia article drafts",
   "type": "module",
   "scripts": {
     "dev": "vite",

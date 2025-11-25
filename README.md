@@ -1,223 +1,200 @@
-# AtiQr - Wikipedia Training Tool
+# WACA - Wikipedia Article Creation Assistant
 
-A Wikipedia training tool designed for school Wikipedia clubs to help beginners, intermediate, and expert writers improve their editing skills. Get real-time analysis, side-by-side corrections, and learn Wikipedia guidelines through practice.
+A policy-enforcing, guided **6-step wizard** for creating Wikipedia article drafts compliant with Articles for Creation (AfC) standards. WACA dramatically lowers the entry barrier for new editors by preventing common submission errors (Notability, NPOV, Formatting) and ensuring every submitted draft meets minimum quality requirements.
 
-**📚 Learn by Doing | 🎯 Real-time Corrections | 🌍 Multilingual Support | 📖 Wikipedia Guidelines Mastery**
+## 🎯 Core Features
 
-![AtiQr Training Tool](https://via.placeholder.com/800x400/3B82F6/FFFFFF?text=AtiQr+Training+Tool)
+### 6-Step Wizard Flow
+1. **Notability Check** - Validate 3+ independent reliable sources proving GNG (General Notability Guideline)
+2. **Lead & Infobox** - Draft article definition (1-3 sentences) with Infobox templates
+3. **Citation Structure** - Add references and auto-generate standard section headings
+4. **Content & NPOV** - Real-time Neutrality Dial with promotional term highlighting
+5. **Review & Metadata** - Policy compliance checklist and category suggestions
+6. **Final Submission** - Package and submit to Wikipedia API Draft space
 
-## 🌟 Features
+### 🎨 Real-Time Neutrality Dial (NPOV Scoring)
+- **Rules-based NLP scoring** mechanism measuring promotional density
+- **Weighted lexicon**:
+  - High (3 pts): "groundbreaking," "revolutionary," "best-in-class" → Clear violations
+  - Medium (2 pts): "leading," "innovative," "successful" → Subjective language
+  - Negative (-1 pt): "according to," "sources report" → Neutralizers
+- **Visual threshold mapping**:
+  - 🟢 Green (≤ 0.02): Neutral - Proceed
+  - 🟡 Yellow (0.02 - 0.05): Warning - Review recommended
+  - 🔴 Red (> 0.05): Critical - Must revise before submission
 
-### Dual Canvas Training Mode
-- **📝 Paste & Analyze**: Paste your draft and see corrections side-by-side
-- **📖 Article Study Mode**: Analyze existing Wikipedia articles to learn from good examples
-- **🎯 Visual Corrections**: Original text vs. improved version with detailed explanations
-- **📋 Learning Points**: Understand why each correction matters
-- **🔍 Citation Training**: Learn where and how to add proper citations
+### ✅ Source Credibility Validation
+Automatic domain tier assessment:
+- **High**: Academic institutions (.edu), government agencies, major news organizations
+- **Medium**: Professional publications, industry news
+- **Low**: Social media, blogs, forums
+- **Unknown**: Requires manual verification
 
-### Wikipedia Policy Compliance
-- **✅ Neutral Point of View (NPOV)**: Detect biased language and promotional content
-- **📚 Verifiability**: Check citation requirements and source quality
-- **🚫 No Original Research**: Flag unsourced claims and synthesis
-- **⚖️ Notability**: Assess if topic meets notability guidelines
-- **🤝 Code of Conduct**: Ensure respectful, collaborative tone
-
-### Quality Metrics
-- **Readability Analysis**: Flesch reading score, sentence complexity, vocabulary level
-- **Citation Quality**: Inline citations, citation density, reference formatting
-- **Reference Assessment**: Source reliability, diversity, and recency
-- **Structural Analysis**: Section organization, header hierarchy, content balance
-- **Language Quality**: Grammar, spelling, and style consistency
-
-### Multilingual Support
-- **🌍 8 Languages**: English, French, Arabic, Swahili, Hausa, Yoruba, Amharic, Zulu
-- **🗣️ Language-specific Analysis**: Adapted guidelines for different Wikipedia editions
-- **📖 Cross-language Learning**: Study articles in multiple languages
-- **🎓 Beginner-friendly**: Perfect for school Wikipedia clubs
-
-### Training Features
-- **📊 Progress Tracking**: Track common mistakes and improvements over time
-- **🎯 Targeted Learning**: Focus on specific Wikipedia guidelines
-- **💡 Learning Points**: Understand the "why" behind each correction
-- **📱 Mobile Friendly**: Practice on any device
-- **🔗 Guideline Links**: Direct links to Wikipedia policy pages
-- **👥 Perfect for Groups**: Ideal for school Wikipedia clubs and training sessions
-
-### Export Features
-- **🖨️ Print/PDF**: Generate printable training reports with full analysis
-- **📝 Markdown**: Export to Markdown format for documentation
-- **📊 CSV**: Export corrections to spreadsheet format for tracking
-- **💾 JSON**: Export complete analysis data for developers
-- **📤 Share with Teachers**: Save and share your progress for feedback
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 18+ and npm
-- Modern web browser with JavaScript enabled
+## 🚀 Getting Started
 
 ### Installation
-
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/atiqr.git
-cd atiqr
-
-# Install dependencies
 npm install
+```
 
-# Start development server
+### Development
+```bash
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173`
-
-### Building for Production
-
+### Build for Production
 ```bash
-# Build the application
 npm run build
+```
 
-# Preview the production build
+### Preview Production Build
+```bash
 npm run preview
 ```
 
-## 📖 Usage Guide
+## 📋 API & Submission Requirements
 
-### Two Training Modes
+### Mandatory AfC Template
+All submissions are prepended with:
+```wikitext
+{{subst:submit}}
+```
 
-#### 1. Paste & Analyze Mode
-1. Write or paste your Wikipedia draft in the text area
-2. Select your language (English, French, Arabic, Swahili, etc.)
-3. Click "Analyze & Learn"
-4. Review corrections side-by-side with explanations
+### WACA Metadata Tag
+Automatically inserted (hidden from readers) for tracking and reviewer aid:
+```wikitext
+{{User:WACA/Tool-Tag
+| version = 1.0
+| npo_score_final = [FINAL NPO SCORE]
+| core_sources_1 = [SOURCE URL/TITLE]
+| user_declared_coi = [YES/NO]
+}}
+```
 
-#### 2. Article Study Mode
-1. Paste a Wikipedia article URL
-2. Click "Analyze & Learn"
-3. Study how the article follows (or breaks) Wikipedia guidelines
-4. Learn from good examples and identify areas for improvement
+### Edit Summary
+All API requests use:
+```
+Creating new draft via WACA Tool (v1.0)
+```
 
-### Understanding Corrections
+## 📁 Project Structure
 
-AtiQr identifies three types of issues:
-
-- **🔴 Critical (Errors)**: Violations of core Wikipedia policies (NPOV, Verifiability, No Original Research)
-- **🟠 Important (Warnings)**: Style issues that affect article quality (weasel words, peacock terms)
-- **🔵 Suggestions**: Recommendations for improvement (citation placement, structure)
-
-### Learning from Corrections
-
-Each correction includes:
-- **Original Text**: What you wrote
-- **Improved Version**: How it should be written
-- **Explanation**: Why the change is needed
-- **Guideline Link**: Direct link to Wikipedia policy page
-- **Category**: Type of issue (citation, NPOV, style, etc.)
-
-### Common Issues AtiQr Catches
-
-1. **Missing Citations**: Factual claims without sources
-2. **Biased Language**: Words like "clearly", "obviously", "best"
-3. **Weasel Words**: Vague phrases like "some people say"
-4. **Peacock Terms**: Promotional language like "legendary", "world-famous"
-5. **Original Research**: Personal opinions or conclusions
-6. **Poor Structure**: Missing sections or unbalanced content
-
-## 🛠️ Technical Architecture
-
-### Frontend Stack
-- **React 18**: Modern React with hooks and functional components
-- **TypeScript**: Type-safe development with full IntelliSense
-- **Tailwind CSS**: Utility-first CSS framework for rapid styling
-- **Vite**: Fast build tool and development server
-- **Lucide React**: Beautiful, consistent icon library
-
-### API Integration
-- **Wikipedia REST API**: Article content and metadata
-- **Wikipedia Action API**: Search functionality and article parsing
-- **CORS Handling**: Proper cross-origin request management
-
-### Code Organization
 ```
 src/
-├── components/          # Reusable UI components
-│   ├── ArticleInput.tsx    # Search and URL input
-│   ├── AnalysisResults.tsx # Main results display
-│   ├── ScoreCard.tsx       # Individual metric cards
-│   ├── SuggestionsList.tsx # Improvement recommendations
-│   └── RecentAnalyses.tsx  # Analysis history
-├── services/           # Business logic and API calls
-│   ├── wikipediaApi.ts    # Wikipedia API integration
-│   └── qualityAnalyzer.ts # Article analysis algorithms
-├── types/              # TypeScript type definitions
-│   └── index.ts           # Shared interfaces
-└── App.tsx             # Main application component
+├── components/
+│   ├── WACWizard.tsx              # Main wizard container
+│   ├── WizardStepIndicator.tsx    # Step progress indicator
+│   ├── Step1NotabilityCheck.tsx   # Notability validation UI
+│   └── Step4ContentNPOV.tsx       # Neutrality Dial UI
+├── services/
+│   ├── wacWizardManager.ts        # Wizard state & validation logic
+│   ├── sourceCredibilityService.ts # Domain reliability assessment
+│   ├── neutralityDialService.ts   # NPOV scoring engine
+│   ├── citationGeneratorService.ts # {{cite web}} generator
+│   └── wikipediaApi.ts            # Wikipedia API wrapper
+├── types/
+│   ├── waca.ts                    # WACA core type definitions
+│   └── index.ts                   # Legacy types (to be removed)
+├── App.tsx                         # Main application
+└── main.tsx                        # React entry point
 ```
 
-## 🔧 Configuration
+## 🛠️ Technology Stack
 
-### Environment Variables
-No environment variables required for basic functionality. All APIs used are public and don't require authentication.
+- **Framework**: React 18.3 + TypeScript 5.5
+- **Build Tool**: Vite 7.2
+- **Styling**: Tailwind CSS 3.4
+- **Icons**: Lucide React
+- **NLP Processing**: Retext (text parsing)
+- **Testing**: Vitest 4.0
 
-### Customization Options
-- **Scoring Weights**: Modify weights in `qualityAnalyzer.ts`
-- **UI Theme**: Adjust colors in `tailwind.config.js`
-- **API Endpoints**: Configure in `wikipediaApi.ts`
+## 📚 Development
 
-## 🧪 Testing
+### Type Definitions
+Core WACA types are defined in `src/types/waca.ts`:
+- `WACWizardState` - Complete wizard state
+- `Source` - Source with credibility tier
+- `NPOVScore` - Neutrality scoring result
+- `AfCSubmissionPayload` - Final submission package
 
-```bash
-# Run linting
-npm run lint
+### Services
 
-# Type checking
-npx tsc --noEmit
-
-# Build test
-npm run build
+#### NeutralityDialService
+Real-time NPOV scoring with word highlighting:
+```typescript
+const score = NeutralityDialService.calculateNPOVScore(text);
+// Returns: { normalizedScore, thresholdStatus, highlightedTerms, feedback }
 ```
 
-## 📱 Browser Support
+#### SourceCredibilityService
+Validate source domains and prove notability:
+```typescript
+const source = await SourceCredibilityService.validateSource(url, title);
+const { gngProven, validSources, message } = await SourceCredibilityService.validateNotability(sources);
+```
 
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
+#### CitationGeneratorService
+Convert URLs to {{cite web}} wikitext:
+```typescript
+const citation = CitationGeneratorService.generateCitation({
+  url: "https://example.com",
+  title: "Article Title",
+  authors: ["Author Name"],
+  publicationDate: "2025-01-15"
+});
+```
 
-## 🤝 Contributing
+#### WACWizardManager
+Manage wizard state and validation:
+```typescript
+const manager = new WACWizardManager("Article Title");
+await manager.updateStep1(sources);
+const { success, validation } = await manager.nextStep();
+const payload = manager.buildSubmissionPayload();
+```
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## 📖 Validation Rules
 
-### Development Guidelines
-- Follow TypeScript best practices
-- Use semantic commit messages
-- Ensure responsive design
-- Add proper error handling
-- Write clear, self-documenting code
+### Step 1: Notability Check
+- ✅ Minimum 3 sources required
+- ✅ Must be independent (not subject's own website)
+- ✅ Must be reliable (high/medium tier domains)
+- ✅ Must be verified (URL exists)
 
-## 📄 License
+### Step 2: Lead & Infobox
+- ✅ Lead section: 1-3 sentences
+- ✅ Non-empty content
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### Step 3: Citation Structure
+- ✅ Each major section must have citations
+- ✅ At least one reference in total
 
-## 🙏 Acknowledgments
+### Step 4: Content & NPOV
+- ✅ Non-empty body content
+- ✅ NPOV score below red threshold (0.05)
 
-- Wikipedia API for providing comprehensive article data
-- Tailwind CSS for the excellent utility-first framework
-- Lucide React for beautiful, consistent icons
-- The Wikipedia editing community for inspiration
+### Step 5: Review & Metadata
+- ✅ All compliance checklist items completed
+- ✅ Copyright confirmation
+- ✅ Recommended: Categories added
 
-## 📞 Support
+### Step 6: Final Submission
+- ✅ Draft title provided
+- ✅ Complete wikitext ready
 
-For questions, issues, or contributions:
-- Create an issue on GitHub
-- Contact the development team
-- Check the documentation wiki
+## 🔒 Legal & Licensing
 
----
+**License**: MIT (OSI-approved, open-source)
 
-**Made with ❤️ for the Wikipedia community**
+This tool respects Wikipedia API rate limits and identifies all actions through Edit Summary and metadata tags as required by Toolforge terms of service.
+
+## 🎓 Wikipedia Policies
+
+WACA enforces compliance with:
+- **General Notability Guideline (GNG)** - Via Step 1 source validation
+- **Neutral Point of View (NPOV)** - Via Step 4 Neutrality Dial
+- **Verifiability** - Via citation structure validation
+- **No Original Research (NOR)** - Via source requirement emphasis
+
+## 📝 Contributing
+
