@@ -335,3 +335,18 @@ WACWizardState {
 
 ## 📝 Contributing
 
+## 🐞 Issue Reporting / Feedback
+
+WACA includes a lightweight in-app Issue Reporter to file feedback directly to this repository.
+
+- Open a prefilled GitHub new-issue page (recommended): the reporter builds a URL that opens GitHub's "New Issue" page for `devzone-creator/WAQ-analyzer` with a prefilled title and body; you must be signed in to GitHub to submit.
+- Create an issue via the GitHub API (optional): if you supply a Personal Access Token (PAT) with `repo` or `repo:issues` scope, the reporter can create an issue directly from the app. The token is used client-side only (in memory) and is never sent to our servers.
+
+Usage:
+
+1. Open the WACA app and scroll to the bottom of the wizard.
+2. Fill the title and description and click **Open on GitHub (recommended)** to open a prefilled issue page.
+3. Or paste a GitHub Personal Access Token and click **Create via API** to create the issue directly (make sure your token has the right scopes).
+
+Security note: Creating issues via the API requires a token with repository permissions. Prefer the "Open on GitHub" option when possible to avoid exposing tokens.
+

@@ -67,6 +67,24 @@ export const Step1NotabilityCheck: React.FC<Step1NotabilityCheckProps> = ({
     });
   };
 
+  const openFlagIssue = (sourceUrl: string, sourceTitle: string, tier: string, verified: boolean) => {
+    const title = `Flag source: ${sourceTitle || sourceUrl}`;
+    const bodyLines = [
+      `Please review this source classification.`,
+      ``,
+      `URL: ${sourceUrl}`,
+      `Credibility tier: ${tier}`,
+      `Verified: ${verified}`,
+      ``,
+      `Notes: (describe why you think this classification is incorrect)`
+    ];
+    const params = new URLSearchParams();
+    params.set('title', title);
+    params.set('body', bodyLines.join('\n'));
+    const url = `https://github.com/devzone-creator/WAQ-analyzer/issues/new?${params.toString()}`;
+    window.open(url, '_blank');
+  };
+
   const credibilityColor = (tier: string) => {
     switch (tier) {
       case 'high':
@@ -208,6 +226,21 @@ export const Step1NotabilityCheck: React.FC<Step1NotabilityCheckProps> = ({
                 {source.verificationError && (
                   <p className="text-xs text-red-600 mt-2">{source.verificationError}</p>
                 )}
+
+                <div className="mt-3 flex gap-2">
+                  <button
+                    onClick={() => openFlagIssue(source.url, source.title, source.credibilityTier, !!source.verified)}
+                    className="px-3 py-1 text-sm bg-yellow-100 hover:bg-yellow-200 text-yellow-800 rounded"
+                  >
+                    Flag Source
+                  </button>
+                  <button
+                    onClick={() => window.open(source.url.startsWith('http') ? source.url : `https://${source.url}`, '_blank')}
+                    className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 text-gray-800 rounded"
+                  >
+                    Open Source
+                  </button>
+                </div>
               </div>
             ))}
           </div>

@@ -9,6 +9,7 @@ import { Step3CitationStructure } from './Step3CitationStructure';
 import { Step4ContentNPOV } from './Step4ContentNPOV';
 import { Step5ReviewMetadata } from './Step5ReviewMetadata';
 import { Step6FinalSubmission } from './Step6FinalSubmission';
+import IssueReporter from './IssueReporter';
 
 interface WACWizardProps {
   onSubmit?: (wikitext: string) => void;
@@ -231,6 +232,10 @@ export const WACWizard: React.FC<WACWizardProps> = () => {
           <p className="flex items-center text-gray-600 font-medium">
             Step {state.currentStep} of 6
           </p>
+        </div>
+        {/* Issue Reporter - allow users to file issues or open a prefilled GitHub issue */}
+        <div className="max-w-4xl mx-auto px-4 mt-6">
+          <IssueReporter repoOwner="devzone-creator" repoName="WAQ-analyzer" />
         </div>
       </div>
     </div>
