@@ -16,7 +16,7 @@ function App() {
         {/* Footer */}
         <footer className="mt-12 md:mt-16 text-center text-gray-600 pb-6 md:pb-8 px-4">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <span className="text-xs md:text-sm font-medium text-gray-700">WACA Tool</span>
+            <span className="text-xs md:text-sm font-medium text-gray-700">AID Tool</span>
             <span className="text-xs md:text-sm font-bold text-gray-900">v1.0</span>
           </div>
           <p className="text-xs text-gray-500">

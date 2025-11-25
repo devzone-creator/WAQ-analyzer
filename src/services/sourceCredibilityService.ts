@@ -16,6 +16,8 @@ export class SourceCredibilityService {
     '.gov.uk',
     '.gov',
     '.org.uk',
+    '.gov.gh', // Ghana government domains
+    '.edu.gh', // Ghana academic institutions
     // Major news organizations
     'bbc.com',
     'bbc.co.uk',
@@ -27,6 +29,19 @@ export class SourceCredibilityService {
     'ft.com',
     'economist.com',
     'aljazeera.com',
+    // Ghanaian news organizations
+    'graphic.com.gh', // Daily Graphic - Ghana's premier newspaper
+    'ghanaweb.com', // GhanaWeb - major news portal
+    'citinewsroom.com', // Citi Newsroom
+    'myjoyonline.com', // Joy FM online
+    'starrfm.com.gh', // Starr FM
+    // Ghana parliament and government
+    'parliament.gh', // Parliament of Ghana
+    'ug.edu.gh', // University of Ghana
+    'knust.edu.gh', // Kwame Nkrumah University of Science and Technology
+    'ucc.edu.gh', // University of Cape Coast
+    'uew.edu.gh', // University of Education, Winneba
+    'uds.edu.gh', // University for Development Studies
     // Reputable institutions
     'britannica.com',
     'encyclopediaoflife.org',

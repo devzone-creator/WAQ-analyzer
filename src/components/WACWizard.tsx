@@ -110,7 +110,7 @@ export const WACWizard: React.FC<WACWizardProps> = () => {
             Wikipedia Article Creation Assistant
           </h2>
           <p className="text-blue-800 mb-6">
-            Create policy-compliant Wikipedia article drafts with guided 6-step wizard
+            A tool that helps you create policy-compliant Wikipedia article drafts.
           </p>
 
           <div className="max-w-md mx-auto">
