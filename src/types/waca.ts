@@ -120,7 +120,7 @@ export interface WACMetadataTag {
 // Complete Wizard State
 export interface WACWizardState {
   currentStep: 1 | 2 | 3 | 4 | 5 | 6;
-  completedSteps: Set<number>;
+  completedSteps: number[];
   
   // Step data
   step1: NotabilityCheckData;

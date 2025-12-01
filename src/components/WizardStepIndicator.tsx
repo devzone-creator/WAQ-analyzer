@@ -3,7 +3,7 @@ import { CheckCircle2, AlertCircle } from 'lucide-react';
 
 export interface StepIndicatorProps {
   currentStep: 1 | 2 | 3 | 4 | 5 | 6;
-  completedSteps: Set<number>;
+  completedSteps: number[];
   onStepClick?: (step: number) => void;
   stepErrors?: Record<number, boolean>;
 }
@@ -23,12 +23,13 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
   onStepClick,
   stepErrors = {}
 }) => {
+  // completedSteps is an array of numbers (canonical type)
   return (
     <div className="w-full">
       {/* Desktop view - horizontal */}
       <div className="hidden md:flex items-center justify-between mb-8">
         {STEP_LABELS.map((step) => {
-          const isCompleted = completedSteps.has(step.number);
+          const isCompleted = completedSteps.includes(step.number);
           const isCurrent = currentStep === step.number;
           const hasError = stepErrors[step.number];
 
@@ -85,7 +86,7 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
       {/* Mobile view - vertical */}
       <div className="md:hidden space-y-3 mb-6">
         {STEP_LABELS.map((step) => {
-          const isCompleted = completedSteps.has(step.number);
+          const isCompleted = completedSteps.includes(step.number);
           const isCurrent = currentStep === step.number;
           const hasError = stepErrors[step.number];
 

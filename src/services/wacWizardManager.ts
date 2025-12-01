@@ -21,7 +21,7 @@ export class WACWizardManager {
     const now = new Date();
     this.state = {
       currentStep: 1,
-      completedSteps: new Set(),
+      completedSteps: [],
       articleTitle,
       language,
       createdAt: now,
@@ -135,7 +135,10 @@ export class WACWizardManager {
     const validation = await this.validateCurrentStep();
 
     if (validation.isValid && validation.canProceed) {
-      this.state.completedSteps.add(this.state.currentStep);
+      // Add current step to completedSteps array if not already present
+      if (!this.state.completedSteps.includes(this.state.currentStep)) {
+        this.state.completedSteps.push(this.state.currentStep);
+      }
       const nextStep = (this.state.currentStep + 1) as 1 | 2 | 3 | 4 | 5 | 6;
       if (nextStep <= 6) {
         this.state.currentStep = nextStep;
@@ -514,7 +517,7 @@ export class WACWizardManager {
    * Check if wizard is complete
    */
   isComplete(): boolean {
-    return this.state.completedSteps.size === 6;
+    return this.state.completedSteps.length === 6;
   }
 
   /**
@@ -524,7 +527,7 @@ export class WACWizardManager {
     const now = new Date();
     this.state = {
       currentStep: 1,
-      completedSteps: new Set(),
+      completedSteps: [],
       articleTitle: this.state.articleTitle,
       language: this.state.language,
       createdAt: now,

@@ -75,7 +75,10 @@ export const WACWizard: React.FC<WACWizardProps> = () => {
 
     setIsLoading(true);
     try {
+      console.debug('handleNext: calling manager.nextStep() from UI');
       const result = await manager.nextStep();
+      console.debug('handleNext: nextStep result:', result);
+      console.debug('handleNext: manager state after nextStep:', manager.getState());
 
       if (result.success) {
         setStepErrors({});
